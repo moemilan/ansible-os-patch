@@ -1,0 +1,61 @@
+---
+
+- name: Reboot RHEL Servers through Satellite using Job Invoction
+  theforeman.foreman.job_invoction:
+    server_url: https://{{ redhat_satellite_server }}
+    username: "{{ redhat_satellite_user }}"
+    password: "{{ redhat_satellite_password }}"
+    job_tempalte: "Power Action - Script Default"
+    search_query: "{{ redhat_satellite_job_search_query }}"
+    inputs: "action=restart"
+  when:
+    - ansible_distribution == 'RedHat'
+    - patch_rhel_by == 'satellite-job'
+
+- name: Patch RHEL using Hammer
+  when:
+    - ansible_distribution == 'RedHat'
+    - patch_rhel_by == 'satellite-hammer'
+  block:
+    - name: Check Hammer is configured
+      ansible.builtin.command:
+        cmd: hammer auth status
+      register: hammer_auth_status
+      changed_when: false
+
+    - name: Hammer is not configured
+      ansible.builtin.fail:
+        msg: "Hammer is not configured. Please configure it first."
+      when:
+        - "'Credentials are not configured' in hammer_auth_status.stdout"
+
+    - name: Reboot RHEL Servers through Satellite using Hammer
+      ansible.builtin.command: >-
+        hammer job-invocation create --organization {{ redhat_satellite_organization_name }}
+        --job-template "Power Action - Script Default"
+        --search-query {{ redhat_satellite_job_search_query }}
+        --inputs "action=restart"
+      delegate_to: "{{ redhat_satellite_server }}"
+      register: hammer_job_invocation_create
+      changed_when: hammer_job_invocation_create.rc == 0
+      async: 600
+      poll: 10
+
+- name: Reboot Linux Host
+  ansible.builtin.reboot:
+  when: >-
+    ansible_distribution in ['Ubuntu'] or
+    redhat_patch_by == 'yum'
+  become: true
+
+- name: Reboot Windows server
+  ansible.windows.win_reboot:
+    test_command: 'exit (Get-Service -Name Netlogon).Status -ne "Running"'
+  when: ansible_os_family == 'Windows'
+
+- name: Wait For Hosts to Reboot
+  ansible.builtin.wait_for:
+    host: "{{ inventory_hostname }}"
+    port: "{{ windows_winrm_port if ansible_os_family == 'Windows' else linux_ssh_port }}"
+    delay: 60
+  delegate_to: localhost

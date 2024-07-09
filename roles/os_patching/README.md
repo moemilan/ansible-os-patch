@@ -1,13 +1,10 @@
-# Patching Role
+Role Name
+=========
 
 This Ansible role is designed to patch and reboot hosts, while updating statuses in a Google Sheet and handling Nagios monitoring.
 
-### Supported Operating Systems
-- Red Hat Enterprise Linux (RHEL)
-- Ubuntu
-- Windows Server
-
-## Requirements
+Requirements
+------------
 
 This role requires the following Ansible collections beyond the default `ansible.builtin`:
 
@@ -15,14 +12,14 @@ This role requires the following Ansible collections beyond the default `ansible
 - `theforeman.foreman`: This collection is necessary for managing RHEL updates and reboots through Red Hat Satellite.
 - `community.general`: This collection is used for additional utilities such as JSON query and index lookup.
 
-
 You can install these collections using the following command:
 
 ```bash
 ansible-galaxy install -r requirements.yml
 ```
 
-## Role Variables
+Role Variables
+--------------
 
 All variables can be overridden in your playbook or inventory.
 
@@ -47,7 +44,6 @@ All variables can be overridden in your playbook or inventory.
 - `google_client_id`: Google Client ID.
 - `google_client_secret`: Google Client Secret.
 - `google_refresh_token`: Google Refresh Token.
-To obtain the google_client_id, google_client_secret, and google_refresh_token, you need to create a new project in the Google Developers Console, enable the Google Sheets API, and create OAuth 2.0 credentials. For detailed instructions, refer to the Google Sheets API documentation.
 
 ### Nagios Variables
 - `nagios_url`: URL for Nagios.
@@ -55,7 +51,6 @@ To obtain the google_client_id, google_client_secret, and google_refresh_token, 
 - `nagios_downtime_in_minutes`: Duration of scheduled downtime in minutes.
 - `nagios_downtime_comment`: Comment for scheduled downtime.
 - `nagios_schedule_downtime`: Boolean to schedule downtime.
-To obtain the nagios_apikey, you need to generate an API key in your Nagios configuration. Refer to the Nagios documentation for instructions on how to generate an API key.
 
 ### Windows Variables
 - `windows_winrm_port`: Windows WinRM port to connect to the Windows servers

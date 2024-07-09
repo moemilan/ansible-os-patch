@@ -1,0 +1,12 @@
+---
+
+collections:
+  - name: ansible.windows
+    type: galaxy
+    source: https://galaxy.ansible.com
+  - name: theforeman.foreman
+    type: galaxy
+    source: https://galaxy.ansible.com
+  - name: community.general
+    type: galaxy
+    source: https://galaxy.ansible.com

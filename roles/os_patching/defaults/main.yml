@@ -1,0 +1,39 @@
+---
+# defaults file for os_patching
+enforce_using_limit: "yes"
+linux_ssh_port: "22"
+
+# satellite-hammer | satellite-job | yum
+redhat_patch_by: satellite-hammer
+redhat_satellite_server: ""
+redhat_satellite_user: ""
+redhat_satellite_password: ""
+redhat_satellite_organization_name: ""
+redhat_satellite_job_search_query: "name={{ inventory_hostname }}"
+
+# Google Sheet variables
+google_sheet_api_url: https://sheets.googleapis.com/v4/spreadsheets
+google_sheet_id: ""
+google_sheet_name: ""
+google_sheet_range: ""
+google_sheet_status_column: ""
+google_client_id: ""
+google_client_secret: ""
+google_refresh_token: ""
+
+# Nagios variables
+nagios_server: ""
+nagios_url: ""
+nagios_apikey: ""
+nagios_downtime_in_minutes: 60
+nagios_downtime_comment: ""
+nagios_schedule_downtime: false
+
+# Windows variables
+windows_winrm_port: "5986"
+windows_update_server_selection: windows_update
+windows_update_log_file: c:\ansible_winupdate.txt
+windows_update_reject_list:
+  - "Update for Microsoft Defender for Endpoint"
+  - "Security Intelligence Update for Microsoft Defender Antivirus"
+  - "Windows Malicious Software Removal Tool x64"
