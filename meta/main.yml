@@ -16,9 +16,9 @@ galaxy_info:
         - "9"
     - name: Ubuntu
       versions:
-        - focal
-        - jammy
-        - noble
+        - "20.04"
+        - "22.04"
+        - "24.04"
     - name: Windows
       versions:
         - 2012R2
