@@ -1,5 +1,6 @@
 galaxy_info:
   role_name: os_patching
+  namespace: moemilan
   author: Mohamed Ahmed
   description: This Ansible role is designed to patch and reboot hosts, while updating statuses in a Google Sheet and handling Nagios monitoring.
 
