@@ -4,8 +4,8 @@
   ansible.builtin.apt:
     name: "*"
     state: latest
-    update_cache: true
     only_upgrade: true
+    update_cache: true
 
 - name: Clean the Ubuntu Servers
   ansible.builtin.apt:

@@ -30,7 +30,7 @@ All variables can be overridden in your playbook or inventory.
 - `enforce_using_limit`: Enforce using `--limit` option
 - `linux_ssh_port`: SSH port
 
-# satellite-hammer | satellite-job | yum
+### Red Hat Variables
 - `redhat_patch_by`: you can select between using Hammer, Satellite Job Invoction or YUM (satellite-hammer | satellite-job | yum)
 - `redhat_satellite_server`: Red Hat Satellite server FQDN
 - `redhat_satellite_user`: User to connect to Red Hat Satellite
@@ -70,7 +70,7 @@ Example Playbook
 - name: Patch All Host(s)
   hosts: all
   roles:
-    - os_patching
+    - moemilan.os_patching
   vars:
     enforce_using_limit: "yes"
     linux_ssh_port: "22"

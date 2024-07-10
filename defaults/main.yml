@@ -3,7 +3,7 @@
 enforce_using_limit: "yes"
 linux_ssh_port: "22"
 
-# satellite-hammer | satellite-job | yum
+# Red Hat variables
 redhat_patch_by: satellite-hammer
 redhat_satellite_server: ""
 redhat_satellite_user: ""
